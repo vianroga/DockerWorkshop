@@ -1,4 +1,4 @@
-FROM openjdk:17-ea-22-jdk-oracle
+FROM openjdk:8u212-jre-alpine
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 
