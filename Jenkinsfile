@@ -25,6 +25,7 @@ pipeline {
         stage('Analysis') {
             steps {
                 echo 'Analizando imagen construida'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh "docker scan --accept-license --severity=medium victor21/minecraft:'${env.BUILD_ID}'"
             }
         }
@@ -33,7 +34,6 @@ pipeline {
         stage('Push') {
             steps {
                 echo 'Enviando imagen a docker hub'
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh "docker push victor21/minecraft:'${env.BUILD_ID}' "
                 sh 'docker logout' 
             }
